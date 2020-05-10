@@ -60,7 +60,7 @@ def plot():
         class_data = content['observable_objects']['0']['extensions']['x-maec-avclass']
         df = pd.DataFrame(class_data)
         print(df)
-        fig = plt.figure(figsize=(20,5))
+        fig = plt.figure(figsize=(8, 3))
         df.classification_name.value_counts().plot.bar()
         plt.suptitle("Frequency a malware class was detected by the antivirus")
         plt.ylabel('Frequency', fontsize=15)
@@ -70,7 +70,7 @@ def plot():
         img.seek(0)
         plot_url = base64.b64encode(img.getvalue()).decode('utf8')
 
-        fig =plt.figure(figsize=(20,5))
+        fig =plt.figure(figsize=(8, 3))
         df.is_detected.value_counts().plot.bar()
         plt.suptitle("Did the Antivirus detected the malware instance?")
         plt.ylabel('Frequency', fontsize=15)
@@ -84,9 +84,8 @@ def plot():
 # THis is if a Dynamic analysis is uploaded
 @app.route('/plotDynamic', methods=['GET', 'POST'])
 def plotDynamic():
-    imgPlot = BytesIO()
-    imgPlot3 = BytesIO()
-    imgPlotByType = BytesIO()
+    img = BytesIO()
+    img2 = BytesIO()
 
     if request.method == 'POST':
         file = request.files['file']
@@ -96,20 +95,22 @@ def plotDynamic():
         class_data = content['relationships']
         df = pd.DataFrame(class_data)
         print(df)
+
         fig = plt.figure(figsize=(8, 3))
         df.relationship_type.value_counts().plot.bar()
         plt.suptitle("Graph - Frequency of Type of Relationship")
         plt.ylabel('Frequency', fontsize=15)
         plt.xlabel('Type ofRelationship', fontsize=15)
-        plt.savefig(imgPlot, format='png', dpi=fig.dpi, bbox_inches='tight', pad_inches=0.5)
+        plt.savefig(img, format='png', dpi=fig.dpi, bbox_inches='tight', pad_inches=0.5)
         plt.close()
-        imgPlot.seek(0)
-        plot2_url = base64.b64encode(imgPlot.getvalue()).decode('utf8')
+        img.seek(0)
+        plot_url = base64.b64encode(img.getvalue()).decode('utf8')
 
-        # Graph for Type of Relationship Frequence
+        # Graph for Frequency bt Type of observable_objects
         fig = plt.figure(figsize=(8, 3))
         results = content['observable_objects']
 
+        print(results)
         for key in results.keys(): # iteraction through the results (dictionaty) and print each line
             values = results.values()
             typList = [] # creates a list to hold the type values
@@ -125,17 +126,17 @@ def plotDynamic():
 
         index = names
         df = pd.DataFrame({'Frequency': valuesList}, index=index)
-        ax = df.plot.barh()
-        plt.show(ax)
-        plt.suptitle("Graph - ByType of Relationship")
+        df.plot.barh()
+        plt.suptitle("Graph - By Type of observable_objects")
         plt.ylabel('Frequency', fontsize=15)
-        plt.xlabel('Type ofRelationship', fontsize=15)
-        plt.savefig(imgPlotByType, format='png', dpi=fig.dpi, bbox_inches='tight', pad_inches=0.5)
+        plt.xlabel('observable_objects', fontsize=15)
+        plt.savefig(img2, format='png', dpi=fig.dpi, bbox_inches='tight', pad_inches=0.5)
         plt.close()
-        imgPlotByType.seek(0)
-        imgPlotByType_url = base64.b64encode(imgPlot.getvalue()).decode('utf8')
+        img2.seek(0)
+        img2_url = base64.b64encode(img2.getvalue()).decode('utf8')
+        
 
-        return render_template('/plot.html', plot2_url=imgPlotByType_url, imgPlotByType_url=plot2_url)
+        return render_template('/plot.html', plot2_url=plot_url, plot_url=img2_url)
 
 if __name__ == '__main__':
     app.run(debug=True)

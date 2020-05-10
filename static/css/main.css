@@ -1,0 +1,253 @@
+/* Made with love by Mutiullah Samim*/
+
+@import url('https://fonts.googleapis.com/css?family=Numans');
+
+html,body{
+background-image: url("/static/image/webCover.jpeg");
+background-size: cover;
+background-repeat: no-repeat;
+height: 100%;
+}
+header {
+  background-color: #d8e3e6;
+  height: 35px;
+  width: 100%;
+  opacity: .9;
+  margin-bottom: 150px;
+}
+header h1.logo {
+  margin: 0;
+  font-size: 1.7em;
+  color: #fff;
+  text-transform: uppercase;
+  float: left;
+}
+header h1.logo:hover {
+  color: #fff;
+  text-decoration: none;
+}
+.container{
+height: 100%;
+align-content: center;
+}
+
+.home card{
+height: 470px;
+margin-top: auto;
+margin-bottom: auto;
+margin-left: 500px;
+width: 400px;
+background-color: rgba(255, 248, 248, 0.856) !important;
+}
+
+.cardUpload{
+height: 370px;
+margin-top: auto;
+margin-bottom: auto;
+margin-left:-450px;
+width: 800px;
+align-content: center;
+background-color: rgba(255, 248, 248, 0.856) !important;
+}
+.cardView{
+height: 370px;
+radius: 5px;
+margin-top: auto;
+margin-bottom: auto;
+width: 100%;
+align-content: center;
+background-color: rgba(255, 248, 248, 0.856) !important;
+}
+
+.card-header h3{
+color: blue;
+}
+
+
+.input-group-prepend span{
+width: 50px;
+background-color: #FFC312;
+color: black;
+border:0 !important;
+}
+
+input:focus{
+box-shadow: 0 0 0 0 !important;
+
+}
+
+.remember{
+color: blue;
+}
+
+.remember input
+{
+width: 20px;
+height: 20px;
+margin-left: 15px;
+margin-right: 5px;
+}
+.leftbox{
+    float:left;
+    background:rgb(239, 245, 239);
+    width:80%;
+    height:600px;
+    border-right: 1px solid black;
+}
+.rightbox{
+    float:right;
+    background:rgb(239, 245, 239); ;
+    width:20%;
+    height:600px;
+}
+.login_btn{
+color: black;
+background-color: #FFC312;
+width: 100px;
+}
+
+.login_btn:hover{
+color: black;
+background-color: white;
+}
+
+.links{
+color: white;
+}
+
+.links a{
+margin-left: 4px;
+}
+
+div.about {
+  padding: 10px 0 30px 0;
+  background-color: #E6E6FA;
+  -webkit-border-radius: 6px;
+     -moz-border-radius: 6px;
+          border-radius: 6px;
+}
+div.cardView{
+  padding: 10px 0 30px 0;
+  background-color: #E6E6FA;
+  -webkit-border-radius: 6px;
+     -moz-border-radius: 6px;
+          border-radius: 6px;
+}
+
+div.cardPlot{
+  padding: 10px 0 30px 0;
+  background-color: #E6E6FA;
+  -webkit-border-radius: 6px;
+     -moz-border-radius: 6px;
+          border-radius: 6px;
+}
+h1 {
+  font-size: 4em;
+  margin-top: 40px;
+  text-align: center;
+  letter-spacing: -2px;
+}
+h2 {
+  font-size: 3em;
+  margin-top: 40px;
+  text-align: center;
+  letter-spacing: -2px;
+}
+h3 {
+  font-size: 1.7em;
+  font-weight: 100;
+  margin-top: 30px;
+  text-align: center;
+  letter-spacing: -1px;
+  color: #999;
+}
+
+.left, .right {
+  display: table-cell;
+  width: 50%;
+  background: blue;
+
+}
+.menu {
+  float: right;
+  margin-top: 8px;
+  margin-right: 108px;
+}
+.menu li {
+  display: inline;
+}
+.menu li + li {
+  margin-left: 35px;
+}
+.menu li a {
+  color: #444;
+  text-decoration: none;
+}
+
+
+.leftBox{
+    float:left;
+    background:rgb(239, 245, 239);
+    width:80%;
+    height:600px;
+    border: 5px solid black;
+}
+div.rightbox{
+    float:right;
+    background:rgb(239, 245, 239); ;
+    width:20%;
+    height:600px;
+}
+table.dataframe, .dataframe th, .dataframe td {
+  border: none;
+  border-bottom: 1px solid #C8C8C8;
+  border-collapse: collapse;
+  text-align:left;
+  padding: 10px;
+  margin-bottom: 40px;
+  font-size: 0.9em;
+}
+
+.male th {
+    background-color: #add8e6;
+    color: white;
+}
+
+.female th {
+    background-color: #77dd77;
+    color: white;
+}
+
+tr:nth-child(odd)		{ background-color:#eee; }
+tr:nth-child(even)	{ background-color:#fff; }
+
+tr:hover            { background-color: #ffff99;}
+
+/*
+MY CSS ADDITIONS ARE BELOW
+*/
+img {
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 10px;
+}
+.chart-container
+{
+    position: absolute;
+    top:0;
+    right:0;
+    bottom: 0;
+    left:0;
+    margin: auto;
+}
+.charts{
+    color: white;
+}
+.flex-container {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    align-content: space-between;
+}

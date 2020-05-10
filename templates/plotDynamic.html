@@ -1,0 +1,34 @@
+{% extends "layout.html" %}
+{% block content %}
+  <div class="plot" style="background-image: url('../static/image/webCover.jpeg'); background-repeat: repeat; ">
+       <div class="plot">
+        <div class="d-flex justify-content-center h-100">
+			<div class="card">
+                <div class="card-header">
+                    <h3>Maec Output Visualization - Graphs</h3>
+                </div>
+                <div class="card-body">
+                        <div class="sidebar">
+                          <a class="active" href="#home">Filter by</a>
+                          <a href="#news">Antivirus</a>
+                          <a href="#contact">Bahavior</a>
+                          <a href="#about">About</a>
+                        </div>
+                        <div class="content">
+
+                        <h2 class="charts">Results in Graph</h2>
+                        <h3 class="charts">This visualization tool helps to analyze the Maec Malware Reports as it provides a summary of the findings </h3>
+                            <div class="flex-container">
+                              <img src="data:image/png;base64, {{ plot_url }} " alt="'Chart">
+                            </div>
+                            <div class="flex-container">
+                              <img src="data:image/png;base64, {{ plot2_url }}" alt="'Chart">
+                            </div>
+                        </div>
+                </div>
+             </div>
+        </div>
+         </div>
+  </div>
+</section>
+{% endblock %}

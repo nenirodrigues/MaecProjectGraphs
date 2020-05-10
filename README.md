@@ -18,3 +18,4 @@ Features:
 							The user can generate the graph
 							The user can save the graph
 				
+*** The connected and maecAPI py files are for test.

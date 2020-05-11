@@ -86,6 +86,8 @@ def plot():
 def plotDynamic():
     img = BytesIO()
     img2 = BytesIO()
+    img3 = BytesIO()
+    img4 = BytesIO()
 
     if request.method == 'POST':
         file = request.files['file']
@@ -95,7 +97,7 @@ def plotDynamic():
         class_data = content['relationships']
         df = pd.DataFrame(class_data)
         print(df)
-
+        #first graph img
         fig = plt.figure(figsize=(8, 3))
         df.relationship_type.value_counts().plot.bar()
         plt.suptitle("Graph - Frequency of Type of Relationship")
@@ -105,12 +107,11 @@ def plotDynamic():
         plt.close()
         img.seek(0)
         plot_url = base64.b64encode(img.getvalue()).decode('utf8')
-
+        
+        # Second graph img2
         # Graph for Frequency bt Type of observable_objects
         fig = plt.figure(figsize=(8, 3))
         results = content['observable_objects']
-
-        print(results)
         for key in results.keys(): # iteraction through the results (dictionaty) and print each line
             values = results.values()
             typList = [] # creates a list to hold the type values
@@ -133,10 +134,55 @@ def plotDynamic():
         plt.savefig(img2, format='png', dpi=fig.dpi, bbox_inches='tight', pad_inches=0.5)
         plt.close()
         img2.seek(0)
-        img2_url = base64.b64encode(img2.getvalue()).decode('utf8')
+        plot2_url = base64.b64encode(img2.getvalue()).decode('utf8')
         
+        # Third graph img3
+        #graphs nodes and edges
+        data = json_normalize(content)
 
-        return render_template('/plot.html', plot2_url=plot_url, plot_url=img2_url)
+        relationships = data.relationships
+        relationships[0], type(relationships[0])
+
+        column_names = relationships[0][1].keys()
+        values = [row.values() for row in relationships[0]]
+
+        new_df = pd.DataFrame(values, columns=column_names)
+        print(new_df)
+        plt.figure(figsize=(6, 6))
+
+        g2 = nx.from_pandas_edgelist(new_df, target='target_ref', source='source_ref')  # 1. Create the graph
+        layout = nx.spring_layout(g2, iterations=50)  # 2. Create a layout for our nodes
+
+        # 3. Draw the parts we want
+        nx.draw_networkx_edges(g2, layout, edge_color='#AAAAAA')
+        targets = [node for node in g2.nodes() if node in new_df.target_ref.unique()]
+        nx.draw_networkx_nodes(g2, layout, nodelist=targets, node_size=100, node_color='#AAAAAA')
+
+        sources = [node for node in g2.nodes() if node in new_df.source_ref.unique()]
+        size = [g2.degree(node) * 80 for node in g2.nodes() if node in new_df.source_ref.unique()]
+        nx.draw_networkx_nodes(g2, layout, nodelist=sources, node_size=size, node_color='lightblue')
+
+        high_degree_source = [node for node in g2.nodes() if node in new_df.source_ref.unique() and g2.degree(node) > 1]
+        nx.draw_networkx_nodes(g2, layout, nodelist=high_degree_source, node_size=100, node_color='#fc8d62')
+
+        targets_dict = dict(zip(targets, targets))
+        sources_dict = dict(zip(sources, sources))
+        nx.draw_networkx_labels(g2, layout, labels=targets_dict)
+        hvnx.draw(g2).opts(tools=[HoverTool(tooltips=[('target', '@index_hover')])])
+
+        plt.axis('off')  # 4. Turn off the axis
+
+        plt.title("Dynamic Triagem Relationship")  # 5. Tell matplotlib to show it
+        #plt.show()
+
+        plt.savefig(img3, format='png', dpi=fig.dpi, bbox_inches='tight', pad_inches=0.5)
+        plt.close()
+        img3.seek(0)
+        plot3_url = base64.b64encode(img3.getvalue()).decode('utf8')
+        
+        # the error I believe is on how I am calling the render
+        return render_template('/plotDynamic.html', plot_url=plot_url, plot2_url=plot2_url, plot3_url=plot3_ur)
+
 
 if __name__ == '__main__':
     app.run(debug=True)

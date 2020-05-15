@@ -18,8 +18,4 @@ Features:
 							The user can generate the graph
 							The user can save the graph
 				
-				WHAT NEED to Be DONE
-*** The connected and maecAPI py files are for test.
- ** Connenect - Thegraphsare working on python, however when integrated to Flask, only one graphy is displayed
- ** maecAPI - The graph is connected, but the label for the edges is too long and get messy, I need to show only when hoover the edges
- ** maecAPT - Count not integrate to Flask, Getting error for the column format
+				
